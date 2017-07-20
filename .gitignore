@@ -5,4 +5,4 @@ tmp
 work
 .cvsignore
 .metadata
-.gitignore
+.idea/
