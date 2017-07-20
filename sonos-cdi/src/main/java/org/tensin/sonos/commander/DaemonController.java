@@ -22,19 +22,13 @@ import org.tensin.sonos.control.ZonePlayer;
 import org.tensin.sonos.helpers.CollectionHelper;
 import org.tensin.sonos.helpers.RemoteDeviceHelper;
 
+import javax.enterprise.context.ApplicationScoped;
+
 /**
  * The Class JavaCommander.
  */
+@ApplicationScoped
 public class DaemonController extends AbstractController implements ISonosController {
-
-    /**
-     * Creates the controller.
-     * 
-     * @return the i sonos controller
-     */
-    public static DaemonController createController() {
-        return new DaemonController();
-    }
 
     /** The controller executor. */
     private final Executor controllerExecutor = Executors.newSingleThreadExecutor(new ThreadFactory() {

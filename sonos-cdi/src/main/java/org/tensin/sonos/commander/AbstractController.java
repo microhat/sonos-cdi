@@ -11,7 +11,7 @@ import java.util.Map.Entry;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.fourthline.cling.UpnpService;
-import org.fourthline.cling.UpnpServiceImpl;
+
 import org.fourthline.cling.model.message.header.UDAServiceTypeHeader;
 import org.fourthline.cling.model.meta.RemoteDevice;
 import org.fourthline.cling.model.types.UDAServiceType;
@@ -31,6 +31,8 @@ import org.tensin.sonos.model.ZoneGroup;
 import org.tensin.sonos.model.ZoneGroupState;
 import org.tensin.sonos.model.ZoneGroupStateModel;
 import org.tensin.sonos.model.ZonePlayerModel;
+
+import javax.inject.Inject;
 
 /**
  * The Class AbstractCommander.
@@ -65,6 +67,7 @@ public abstract class AbstractController implements ZoneGroupTopologyListener {
     private final Map<String, Long> zonePlayerDiscoveries = new HashMap<String, Long>();
 
     /** The upnp service. */
+    @Inject
     private UpnpService upnpService;
 
     /** The command stack zone. */
@@ -452,7 +455,7 @@ public abstract class AbstractController implements ZoneGroupTopologyListener {
      * Search for devices.
      */
     public void startDiscovery() {
-        upnpService = new UpnpServiceImpl(getListener());
+        upnpService.getRegistry().addListener(getListener());
 
         // Send a search message to all devices and services, they should respond soon
         final UDAServiceType udaType = new UDAServiceType(SonosConstants.AV_TRANSPORT);

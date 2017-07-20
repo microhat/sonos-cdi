@@ -8,15 +8,17 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.context.Destroyed;
 import javax.enterprise.context.Initialized;
 import javax.enterprise.event.Observes;
+import javax.inject.Inject;
 
 @ApplicationScoped
 public class CdiLifecycler {
 
     private Logger log = LoggerFactory.getLogger(CdiLifecycler.class);
+
+    @Inject
     private DaemonController controller;
 
     private void init(@Observes @Initialized(ApplicationScoped.class) Object init) {
-        controller = DaemonController.createController();
         try {
             controller.start();
         } catch (SonosException e) {
